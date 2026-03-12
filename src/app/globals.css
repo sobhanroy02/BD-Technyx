@@ -212,3 +212,18 @@ body {
     transform: translateY(-14px) rotate(2deg);
   }
 }
+
+.reo-hand {
+  transform-origin: top left;
+  animation: reo-wave 1.1s ease-in-out infinite;
+}
+
+@keyframes reo-wave {
+  0%,
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  50% {
+    transform: rotate(18deg) translateY(-1px);
+  }
+}

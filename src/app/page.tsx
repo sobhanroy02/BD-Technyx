@@ -162,6 +162,7 @@ export default function Home() {
   const [hudMetrics, setHudMetrics] = useState({ sync: 96, load: 72, signal: 99 });
   const [isReoOpen, setReoOpen] = useState(false);
   const [isReoTyping, setReoTyping] = useState(false);
+  const [isReoBotGreeting, setReoBotGreeting] = useState(false);
   const [reoInput, setReoInput] = useState("");
   const [reoMessages, setReoMessages] = useState<ChatMessage[]>([
     {
@@ -170,6 +171,7 @@ export default function Home() {
       text: "Hi, I am Reo. I can help with services, labs, case studies, and collaboration booking.",
     },
   ]);
+  const reoGreetingTimeouts = useRef<number[]>([]);
 
   const compareRows = useMemo(
     () => [
@@ -262,6 +264,13 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    return () => {
+      reoGreetingTimeouts.current.forEach((id) => window.clearTimeout(id));
+      reoGreetingTimeouts.current = [];
+    };
+  }, []);
+
+  useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
@@ -348,6 +357,18 @@ export default function Home() {
   const handleConsoleAction = (target: NavTarget) => {
     handleNavAction(target);
     setAiConsoleOpen(false);
+  };
+
+  const handleReoFabClick = () => {
+    if (isReoOpen) {
+      setReoOpen(false);
+      return;
+    }
+
+    setReoBotGreeting(true);
+    const openId = window.setTimeout(() => setReoOpen(true), 750);
+    const hideId = window.setTimeout(() => setReoBotGreeting(false), 1450);
+    reoGreetingTimeouts.current.push(openId, hideId);
   };
 
   const handleOpenSkyscraperPanel = () => {
@@ -730,14 +751,50 @@ export default function Home() {
           )}
         </AnimatePresence>
 
-        <button
+        <motion.button
           suppressHydrationWarning
           type="button"
-          onClick={() => setReoOpen((prev) => !prev)}
-          className="neon-btn fixed bottom-5 right-5 z-50 rounded-full px-5 py-3 text-sm font-semibold text-white shadow-[0_0_25px_rgba(58,168,255,0.35)]"
+          onClick={handleReoFabClick}
+          whileHover={{ scale: 1.06 }}
+          whileTap={{ scale: 0.96 }}
+          className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-linear-to-br from-electric-blue via-neon-violet to-cyber-teal shadow-[0_0_30px_rgba(58,168,255,0.4)] ring-2 ring-white/15"
+          aria-label={isReoOpen ? "Close Reo chat" : "Open Reo chat"}
         >
-          <span>{isReoOpen ? "Close Reo" : "Chat with Reo"}</span>
-        </button>
+          <span className="text-[11px] font-semibold tracking-[0.2em] text-white">{isReoOpen ? "×" : "REO"}</span>
+          <span className="absolute inset-0 rounded-full border border-white/30 animate-ping opacity-30" aria-hidden />
+        </motion.button>
+
+        <AnimatePresence>
+          {isReoBotGreeting && !isReoOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 22, scale: 0.92 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 16, scale: 0.95 }}
+              transition={{ duration: 0.28, ease: "easeOut" }}
+              className="glass holo-border fixed bottom-24 right-5 z-50 w-60 rounded-3xl p-4"
+            >
+              <div className="flex items-start gap-3">
+                <div className="relative h-14 w-14 rounded-2xl bg-linear-to-br from-electric-blue via-neon-violet to-cyber-teal p-2 shadow-[0_0_26px_rgba(58,168,255,0.35)]">
+                  <div className="flex h-full w-full items-center justify-center rounded-xl bg-[#0c1324]">
+                    <div className="relative h-10 w-10 rounded-full bg-white/90">
+                      <div className="absolute -top-2 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-electric-blue shadow-[0_0_10px_rgba(58,168,255,0.8)]" />
+                      <div className="absolute inset-x-2 top-3 flex justify-between">
+                        <span className="h-2 w-2 rounded-full bg-[#0f182b]" />
+                        <span className="h-2 w-2 rounded-full bg-[#0f182b]" />
+                      </div>
+                      <div className="absolute left-1/2 top-6 h-2 w-6 -translate-x-1/2 rounded-full bg-[#d9e6ff]" />
+                      <div className="reo-hand absolute -right-3 top-3 h-8 w-3 rounded-full bg-white/90" />
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-1 text-sm text-[#d4e5ff]">
+                  <p className="text-xs tracking-[0.2em] text-cyber-teal">REO IS HERE</p>
+                  <p>Hey! I am Reo. Waving in and booting the chat...</p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <AnimatePresence>
           {isReoOpen && (
