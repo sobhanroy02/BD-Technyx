@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import ClientLayout from "./ClientLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,14 +14,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: import("next").Viewport = {
+  themeColor: "#000000",
+  colorScheme: "dark",
+};
+
 export const metadata: Metadata = {
   title: "BD TECHNYX | Engineering Digital Dominance",
   description:
     "BD TECHNYX is a futuristic digital innovation powerhouse focused on marketing intelligence, design systems, and product engineering.",
   applicationName: "BD TECHNYX",
   manifest: "/manifest.webmanifest",
-  themeColor: "#0b1224",
-  colorScheme: "dark",
   icons: {
     icon: [
       { url: "/file.svg", type: "image/svg+xml", sizes: "512x512" },
@@ -46,9 +50,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`} 
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground flex flex-col min-h-screen`} 
       >
-        {children}
+        <ClientLayout>{children}</ClientLayout>
         <SpeedInsights />
       </body>
     </html>

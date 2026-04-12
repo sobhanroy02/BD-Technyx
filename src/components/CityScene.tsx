@@ -44,8 +44,8 @@ function DroneTraffic() {
         <mesh key={index}>
           <sphereGeometry args={[0.08, 12, 12]} />
           <meshStandardMaterial
-            color={index % 2 === 0 ? "#3AA8FF" : "#FF7A18"}
-            emissive={index % 2 === 0 ? "#3AA8FF" : "#FF7A18"}
+            color={index % 2 === 0 ? "#E50914" : "#FF2B3A"}
+            emissive={index % 2 === 0 ? "#E50914" : "#FF2B3A"}
             emissiveIntensity={1.8}
           />
         </mesh>
@@ -69,8 +69,8 @@ function HolographicCore() {
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[1.6, 0.07, 20, 80]} />
         <meshStandardMaterial
-          color="#3AA8FF"
-          emissive="#3AA8FF"
+          color="#E50914"
+          emissive="#E50914"
           emissiveIntensity={1.1}
           transparent
           opacity={0.86}
@@ -79,8 +79,8 @@ function HolographicCore() {
       <mesh rotation={[Math.PI / 3, Math.PI / 6, 0]}>
         <torusGeometry args={[1.1, 0.05, 18, 64]} />
         <meshStandardMaterial
-          color="#7B5CFF"
-          emissive="#7B5CFF"
+          color="#FF2B3A"
+          emissive="#FF2B3A"
           emissiveIntensity={1.2}
           transparent
           opacity={0.8}
@@ -89,9 +89,9 @@ function HolographicCore() {
       <mesh>
         <icosahedronGeometry args={[0.42, 1]} />
         <meshStandardMaterial
-          color="#00E5C3"
-          emissive="#00E5C3"
-          emissiveIntensity={1.2}
+          color="#F5F5F5"
+          emissive="#F5F5F5"
+          emissiveIntensity={1.15}
           metalness={0.4}
           roughness={0.15}
         />
@@ -125,8 +125,8 @@ function ScanningBeams() {
         <mesh key={`beam-${index}`} position={position}>
           <cylinderGeometry args={[0.02, 0.3, 7.4, 16, 1, true]} />
           <meshStandardMaterial
-            color={index % 2 === 0 ? "#00E5C3" : "#FF7A18"}
-            emissive={index % 2 === 0 ? "#00E5C3" : "#FF7A18"}
+            color={index % 2 === 0 ? "#E50914" : "#F5F5F5"}
+            emissive={index % 2 === 0 ? "#E50914" : "#F5F5F5"}
             emissiveIntensity={0.85}
             transparent
             opacity={0.22}
@@ -155,7 +155,7 @@ function MicroSatellites() {
 
   return (
     <group ref={satellitesRef}>
-      {["#3AA8FF", "#7B5CFF", "#FF7A18"].map((color, index) => (
+      {["#E50914", "#FF2B3A", "#F5F5F5"].map((color, index) => (
         <mesh key={`satellite-${index}`}>
           <sphereGeometry args={[0.12, 14, 14]} />
           <meshStandardMaterial color={color} emissive={color} emissiveIntensity={1.55} />
@@ -197,8 +197,8 @@ function Skyline() {
           <mesh position={[block.x, block.height / 2, block.z]}>
             <boxGeometry args={[block.width, block.height, block.width]} />
             <meshStandardMaterial
-              color="#151A2E"
-              emissive={index % 3 === 0 ? "#7B5CFF" : "#3AA8FF"}
+              color="#12131B"
+              emissive={index % 3 === 0 ? "#E50914" : "#FF2B3A"}
               emissiveIntensity={0.18}
               metalness={0.65}
               roughness={0.2}
@@ -208,7 +208,7 @@ function Skyline() {
       ))}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
         <planeGeometry args={[60, 60, 1, 1]} />
-        <meshStandardMaterial color="#0F1117" metalness={0.7} roughness={0.28} />
+        <meshStandardMaterial color="#0B0C10" metalness={0.7} roughness={0.28} />
       </mesh>
     </group>
   );
@@ -222,11 +222,11 @@ export default function CityScene() {
       gl={{ antialias: true, alpha: true }}
       className="h-full w-full"
     >
-      <fog attach="fog" args={["#0F1117", 15, 36]} />
-      <ambientLight intensity={0.45} color="#3AA8FF" />
-      <directionalLight position={[7, 12, 6]} intensity={1.5} color="#7B5CFF" />
-      <pointLight position={[-6, 7, -3]} intensity={2.5} color="#00E5C3" />
-      <pointLight position={[6, 5, 6]} intensity={1.8} color="#FF7A18" />
+      <fog attach="fog" args={["#0B0C10", 15, 36]} />
+      <ambientLight intensity={0.42} color="#E50914" />
+      <directionalLight position={[7, 12, 6]} intensity={1.5} color="#FF2B3A" />
+      <pointLight position={[-6, 7, -3]} intensity={2.4} color="#F5F5F5" />
+      <pointLight position={[6, 5, 6]} intensity={1.6} color="#E50914" />
       <CinematicCameraRig />
       <Skyline />
       <DroneTraffic />
