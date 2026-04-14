@@ -161,26 +161,28 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
       <div className="cursor-aura" />
       
       {/* Global Navigation */}
-      <nav className="fixed left-0 right-0 top-0 z-40 px-4 pt-4 md:px-8 lg:px-14">
-        <div className="glass mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-3 rounded-2xl px-4 py-3">
+      <nav className="fixed left-0 right-0 top-0 z-40 px-3 pt-3 sm:px-4 md:px-8 lg:px-14">
+        <div className="glass mx-auto flex w-full max-w-7xl flex-col gap-3 rounded-2xl px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-4">
           <button
             suppressHydrationWarning
             type="button"
             onClick={() => handleNavAction("")}
-            className="text-sm font-semibold tracking-[0.18em] text-white"
+            className="self-center text-[11px] font-semibold tracking-[0.18em] text-white sm:self-auto sm:text-sm"
           >
             BD TECHNYX
           </button>
 
-          <div className="flex flex-wrap items-center gap-2 text-xs md:text-sm">
-            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => handleNavAction("services")}><span>Services</span></button>
-            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => handleNavAction("labs")}><span>Labs</span></button>
-            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => handleNavAction("work")}><span>Work</span></button>
-            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => handleNavAction("about")}><span>About</span></button>
-            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => handleNavAction("timeline")}><span>Timeline</span></button>
-            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => handleNavAction("contact")}><span>Build With Us</span></button>
-            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => setAiConsoleOpen(true)}><span>AI Console</span></button>
-            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => setReoOpen(true)}><span>Talk to Reo</span></button>
+          <div className="no-scrollbar w-full overflow-x-auto pb-1 sm:w-auto sm:overflow-visible sm:pb-0">
+            <div className="mx-auto flex min-w-max items-center gap-2 text-[11px] sm:text-sm">
+              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => handleNavAction("services")}><span>Services</span></button>
+              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => handleNavAction("labs")}><span>Labs</span></button>
+              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => handleNavAction("work")}><span>Work</span></button>
+              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => handleNavAction("about")}><span>About</span></button>
+              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => handleNavAction("timeline")}><span>Timeline</span></button>
+              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => handleNavAction("contact")}><span>Build With Us</span></button>
+              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => setAiConsoleOpen(true)}><span>AI Console</span></button>
+              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => setReoOpen(true)}><span>Talk to Reo</span></button>
+            </div>
           </div>
         </div>
       </nav>
