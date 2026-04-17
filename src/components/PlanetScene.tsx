@@ -53,20 +53,20 @@ function RotatingPlanet() {
       </Sphere>
       {/* Outer atmosphere glow */}
       <Sphere args={[4.65, 64, 64]} position={[0, 0, 0]}>
-        <meshBasicMaterial 
-          color="#ffffff" 
-          transparent={true} 
-          opacity={0.03} 
-          side={THREE.BackSide} 
+        <meshBasicMaterial
+          color="#ffffff"
+          transparent={true}
+          opacity={0.03}
+          side={THREE.BackSide}
           blending={THREE.AdditiveBlending}
         />
       </Sphere>
       <Sphere args={[4.55, 64, 64]} position={[0, 0, 0]}>
-        <meshBasicMaterial 
-          color="#ffffff" 
-          transparent={true} 
-          opacity={0.05} 
-          side={THREE.BackSide} 
+        <meshBasicMaterial
+          color="#ffffff"
+          transparent={true}
+          opacity={0.05}
+          side={THREE.BackSide}
           blending={THREE.AdditiveBlending}
         />
       </Sphere>

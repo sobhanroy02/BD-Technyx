@@ -6,8 +6,8 @@
   --foreground: #ffffff;
   --muted: #8c8c8c;
   --electric-blue: #cbfb45;
-  --neon-violet: #d4ff59;
-  --neon-orange: #aaff00;
+  --neon-violet: #0095ff;
+  --neon-orange: #0095ff;
   --cyber-teal: #ffffff;
   --glass: rgba(255, 255, 255, 0.03);
   --glass-edge: rgba(255, 255, 255, 0.08);
@@ -28,9 +28,65 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: "Bubblegum Sans", sans-serif;
+  font-size: 1.2rem;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Boldonse", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.35;
+}
+
+@media (min-width: 768px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.28;
+  }
+}
+
+button,
+.neon-btn {
+  font-family: "Bubblegum Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.08em;
+}
+
+.brand-bd-technyx {
+  font-family: "Boldonse", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.supermercado-one-regular {
+  font-family: "Supermercado One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.boldonse-regular {
+  font-family: "Boldonse", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.bubblegum-sans-regular {
+  font-family: "Bubblegum Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 * {
@@ -126,11 +182,9 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 30;
-  background: radial-gradient(
-    250px circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
-    rgba(255, 255, 255, 0.03),
-    transparent 60%
-  );
+  background: radial-gradient(250px circle at var(--cursor-x, 50%) var(--cursor-y, 50%),
+      rgba(255, 255, 255, 0.03),
+      transparent 60%);
 }
 
 .glitch {
@@ -167,40 +221,48 @@ body {
 }
 
 @keyframes pulse-ring {
+
   0%,
   100% {
     box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.25), 0 0 0 0 rgba(255, 255, 255, 0.18);
   }
+
   50% {
     box-shadow: 0 0 0 12px rgba(229, 9, 20, 0), 0 0 0 24px rgba(255, 255, 255, 0);
   }
 }
 
 @keyframes float-slow {
+
   0%,
   100% {
     transform: translateY(0) rotate(0.2deg);
   }
+
   50% {
     transform: translateY(-10px) rotate(-0.4deg);
   }
 }
 
 @keyframes float-slower {
+
   0%,
   100% {
     transform: translateY(0) rotate(-0.2deg);
   }
+
   50% {
     transform: translateY(-16px) rotate(0.33deg);
   }
 }
 
 @keyframes beam-sway {
+
   0%,
   100% {
     transform: translateY(0) rotate(-2deg);
   }
+
   50% {
     transform: translateY(-14px) rotate(2deg);
   }
@@ -212,10 +274,12 @@ body {
 }
 
 @keyframes reo-wave {
+
   0%,
   100% {
     transform: rotate(0deg) translateY(0);
   }
+
   50% {
     transform: rotate(18deg) translateY(-1px);
   }

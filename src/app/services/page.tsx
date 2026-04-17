@@ -114,8 +114,8 @@ export default function ServicesPage() {
                    <span className="absolute inset-0 bg-electric-blue/20 animate-pulse" />
                 )}
               </div>
-              <p className="text-sm font-semibold text-white">{service.title}</p>
-              <p className="mt-2 text-xs text-[#AAB8D4] line-clamp-2 md:line-clamp-none">{service.subtitle}</p>
+              <p className="text-[17.67px] font-semibold text-white">{service.title}</p>
+              <p className="mt-2 text-[14.56px] text-[#AAB8D4] line-clamp-2 md:line-clamp-none">{service.subtitle}</p>
             </motion.button>
           ))}
         </div>

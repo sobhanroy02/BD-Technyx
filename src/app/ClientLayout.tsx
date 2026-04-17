@@ -10,6 +10,11 @@ type ChatMessage = {
   text: string;
 };
 
+type BeforeInstallPromptEvent = Event & {
+  prompt: () => Promise<void> | void;
+  userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
+};
+
 const reoQuickQueries = [
   "What services do you offer?",
   "How do I start collaboration?",
@@ -22,6 +27,9 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
 
   const [isAiConsoleOpen, setAiConsoleOpen] = useState(false);
   const [hudMetrics, setHudMetrics] = useState({ sync: 96, load: 72, signal: 99 });
+  const [isHudVisible, setHudVisible] = useState(true);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [deferredInstallPrompt, setDeferredInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [isReoOpen, setReoOpen] = useState(false);
   const [isReoTyping, setReoTyping] = useState(false);
   const [isReoBotGreeting, setReoBotGreeting] = useState(false);
@@ -58,6 +66,16 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
     return () => window.clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const onBeforeInstallPrompt = (event: Event) => {
+      event.preventDefault();
+      setDeferredInstallPrompt(event as BeforeInstallPromptEvent);
+    };
+
+    window.addEventListener("beforeinstallprompt", onBeforeInstallPrompt);
+    return () => window.removeEventListener("beforeinstallprompt", onBeforeInstallPrompt);
+  }, []);
+
   // Keyboard shortcut for AI Console
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -80,11 +98,23 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
 
   const handleNavAction = (targetPath: string) => {
     router.push(`/${targetPath}`);
+    setMobileMenuOpen(false);
   };
 
   const handleConsoleAction = (targetPath: string) => {
     handleNavAction(targetPath);
     setAiConsoleOpen(false);
+  };
+
+  const handleDownloadWebApp = async () => {
+    if (deferredInstallPrompt) {
+      await deferredInstallPrompt.prompt();
+      await deferredInstallPrompt.userChoice;
+      setDeferredInstallPrompt(null);
+      return;
+    }
+
+    window.open("/manifest.webmanifest", "_blank", "noopener,noreferrer");
   };
 
   const handleReoFabClick = () => {
@@ -161,44 +191,72 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
       <div className="cursor-aura" />
       
       {/* Global Navigation */}
-      <nav className="fixed left-0 right-0 top-0 z-40 px-3 pt-3 sm:px-4 md:px-8 lg:px-14">
-        <div className="glass mx-auto flex w-full max-w-7xl flex-col gap-3 rounded-2xl px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-4">
+      <nav className="fixed left-0 right-0 top-0 z-40 px-4 pt-4 md:px-8 lg:px-14">
+        <div className="glass mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-3 rounded-2xl px-4 py-3">
           <button
             suppressHydrationWarning
             type="button"
             onClick={() => handleNavAction("")}
-            className="self-center text-[11px] font-semibold tracking-[0.18em] text-white sm:self-auto sm:text-sm"
+            className="brand-bd-technyx text-sm font-semibold tracking-[0.18em] text-white"
           >
             BD TECHNYX
           </button>
 
-          <div className="no-scrollbar w-full overflow-x-auto pb-1 sm:w-auto sm:overflow-visible sm:pb-0">
-            <div className="mx-auto flex min-w-max items-center gap-2 text-[11px] sm:text-sm">
-              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => handleNavAction("services")}><span>Services</span></button>
-              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => handleNavAction("labs")}><span>Labs</span></button>
-              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => handleNavAction("work")}><span>Work</span></button>
-              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => handleNavAction("about")}><span>About</span></button>
-              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => handleNavAction("timeline")}><span>Timeline</span></button>
-              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => handleNavAction("contact")}><span>Build With Us</span></button>
-              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => setAiConsoleOpen(true)}><span>AI Console</span></button>
-              <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 whitespace-nowrap text-white" onClick={() => setReoOpen(true)}><span>Talk to Reo</span></button>
+          <div className="hidden flex-wrap items-center gap-2 text-xs md:flex md:text-sm">
+            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => handleNavAction("services")}><span>Services</span></button>
+            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => handleNavAction("labs")}><span>Labs</span></button>
+            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => handleNavAction("work")}><span>Work</span></button>
+            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => handleNavAction("about")}><span>About</span></button>
+            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => handleNavAction("timeline")}><span>Timeline</span></button>
+            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => handleNavAction("contact")}><span>Build With Us</span></button>
+            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => setAiConsoleOpen(true)}><span>AI Console</span></button>
+            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => setHudVisible((prev) => !prev)}><span>{isHudVisible ? "Hide HUD" : "Show HUD"}</span></button>
+            <button suppressHydrationWarning type="button" className="neon-btn rounded-lg px-3 py-2 text-white" onClick={() => setReoOpen(true)}><span>Talk to Reo</span></button>
+          </div>
+
+          <button
+            suppressHydrationWarning
+            type="button"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+            className="flex items-center rounded-none border-0 bg-transparent px-0 py-2 text-white md:hidden"
+            aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isMobileMenuOpen}
+          >
+            <span className="text-lg leading-none">{isMobileMenuOpen ? "×" : "☰"}</span>
+          </button>
+        </div>
+
+        {isMobileMenuOpen && (
+          <div className="glass mx-auto mt-3 w-full max-w-7xl rounded-2xl border border-white/10 p-4 md:hidden">
+            <div className="grid gap-2 text-sm">
+              <button suppressHydrationWarning type="button" className="w-full border-0 bg-transparent px-0 py-2 text-left text-white hover:text-[#cbfb45]" onClick={() => handleNavAction("services")}><span>Services</span></button>
+              <button suppressHydrationWarning type="button" className="w-full border-0 bg-transparent px-0 py-2 text-left text-white hover:text-[#cbfb45]" onClick={() => handleNavAction("labs")}><span>Labs</span></button>
+              <button suppressHydrationWarning type="button" className="w-full border-0 bg-transparent px-0 py-2 text-left text-white hover:text-[#cbfb45]" onClick={() => handleNavAction("work")}><span>Work</span></button>
+              <button suppressHydrationWarning type="button" className="w-full border-0 bg-transparent px-0 py-2 text-left text-white hover:text-[#cbfb45]" onClick={() => handleNavAction("about")}><span>About</span></button>
+              <button suppressHydrationWarning type="button" className="w-full border-0 bg-transparent px-0 py-2 text-left text-white hover:text-[#cbfb45]" onClick={() => handleNavAction("timeline")}><span>Timeline</span></button>
+              <button suppressHydrationWarning type="button" className="w-full border-0 bg-transparent px-0 py-2 text-left text-white hover:text-[#cbfb45]" onClick={() => handleNavAction("contact")}><span>Build With Us</span></button>
+              <button suppressHydrationWarning type="button" className="w-full border-0 bg-transparent px-0 py-2 text-left text-white hover:text-[#cbfb45]" onClick={() => setAiConsoleOpen(true)}><span>AI Console</span></button>
+              <button suppressHydrationWarning type="button" className="w-full border-0 bg-transparent px-0 py-2 text-left text-white hover:text-[#cbfb45]" onClick={() => setHudVisible((prev) => !prev)}><span>{isHudVisible ? "Hide HUD" : "Show HUD"}</span></button>
+              <button suppressHydrationWarning type="button" className="w-full border-0 bg-transparent px-0 py-2 text-left text-white hover:text-[#cbfb45]" onClick={() => setReoOpen(true)}><span>Talk to Reo</span></button>
             </div>
           </div>
-        </div>
+        )}
       </nav>
 
       {/* Global HUD */}
-      <aside className="fixed right-4 top-24 z-40 hidden w-52 rounded-2xl border border-white/15 bg-[#0c0d12]/80 p-4 backdrop-blur-md md:block">
-        <p className="text-[11px] tracking-[0.2em] text-electric-blue">LIVE NEURAL HUD</p>
-        <div className="mt-3 space-y-2 text-xs text-[#F2E8EC]">
-          <p>SYNC: {hudMetrics.sync}%</p>
-          <p>SYSTEM LOAD: {hudMetrics.load}%</p>
-          <p>SIGNAL: {hudMetrics.signal}%</p>
-        </div>
-        <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-          <div className="h-full rounded-full bg-linear-to-r from-electric-blue via-neon-violet to-cyber-teal transition-all duration-500" style={{ width: `${hudMetrics.signal}%` }} />
-        </div>
-      </aside>
+      {isHudVisible && (
+        <aside className="fixed right-4 top-24 z-40 hidden w-52 rounded-2xl border border-white/15 bg-[#0c0d12]/80 p-4 backdrop-blur-md md:block">
+          <p className="text-[11px] tracking-[0.2em] text-electric-blue">LIVE NEURAL HUD</p>
+          <div className="mt-3 space-y-2 text-xs text-[#F2E8EC]">
+            <p>SYNC: {hudMetrics.sync}%</p>
+            <p>SYSTEM LOAD: {hudMetrics.load}%</p>
+            <p>SIGNAL: {hudMetrics.signal}%</p>
+          </div>
+          <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+            <div className="h-full rounded-full bg-linear-to-r from-electric-blue via-neon-violet to-cyber-teal transition-all duration-500" style={{ width: `${hudMetrics.signal}%` }} />
+          </div>
+        </aside>
+      )}
 
       {/* AI Console Overlay */}
       <AnimatePresence>
@@ -421,8 +479,16 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
             </div>
           </div>
         </div>
-        <div className="mx-auto max-w-[1400px] mt-16 border-t border-white/10 pt-6 flex flex-col md:flex-row justify-center md:justify-start items-center text-sm text-[#8c8c8c]">
+        <div className="mx-auto max-w-[1400px] mt-16 border-t border-white/10 pt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm text-[#8c8c8c]">
           <p>© 2025 All rights reserved, Developed by BD Technyx</p>
+          <button
+            suppressHydrationWarning
+            type="button"
+            onClick={handleDownloadWebApp}
+            className="neon-btn rounded-full px-5 py-2 text-sm text-white"
+          >
+            <span>Download Web App</span>
+          </button>
         </div>
       </footer>
     </>

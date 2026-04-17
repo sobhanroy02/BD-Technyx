@@ -138,7 +138,7 @@ export default function TimelinePage() {
                         <p className="text-xs uppercase tracking-widest text-[#D0DEFA] font-semibold border-b border-white/10 pb-2 mb-3">Key Deliverables</p>
                         {item.deliverables.map((del, i) => (
                           <div key={i} className="flex items-center gap-3">
-                            <span className="w-1.5 h-1.5 rounded-full bg-cyber-teal flex-shrink-0 shadow-[0_0_8px_rgba(30,215,96,0.8)]" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-cyber-teal shrink-0 shadow-[0_0_8px_rgba(30,215,96,0.8)]" />
                             <span className="text-sm text-[#E2DEE5]">{del}</span>
                           </div>
                         ))}

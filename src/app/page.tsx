@@ -63,7 +63,7 @@ export default function Home() {
           Introducing Money management website
         </div>
 
-        <h1 className="reveal mx-auto max-w-4xl text-5xl font-semibold tracking-tight text-white md:text-7xl lg:text-[5.5rem] leading-[1.05]">
+        <h1 className="reveal mx-auto max-w-4xl text-4xl font-semibold tracking-tight text-white md:text-6xl lg:text-[4.8rem] leading-[1.22]">
           Turn your big idea into a stunning website
         </h1>
         
