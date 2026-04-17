@@ -79,9 +79,9 @@ export default function TimelinePage() {
         {/* Timeline Container */}
         <div ref={containerRef} className="relative mt-20 md:mt-32 max-w-5xl mx-auto">
           {/* Center Scroll Line for Desktop / Left Line for Mobile */}
-          <div className="absolute left-[36px] md:left-1/2 top-0 bottom-0 w-1 bg-white/10 -translate-x-1/2 rounded-full overflow-hidden">
+          <div className="absolute left-9 md:left-1/2 top-0 bottom-0 w-1 bg-white/10 -translate-x-1/2 rounded-full overflow-hidden">
             <motion.div 
-              className="absolute top-0 left-0 w-full bg-gradient-to-b from-electric-blue via-neon-violet to-cyber-teal"
+              className="absolute top-0 left-0 w-full bg-linear-to-b from-electric-blue via-neon-violet to-cyber-teal"
               style={{ height: lineHeight }}
             />
           </div>
@@ -98,7 +98,7 @@ export default function TimelinePage() {
                     whileInView={{ scale: 1, opacity: 1 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.5 }}
-                    className="absolute left-[36px] md:left-1/2 w-10 h-10 -translate-x-1/2 rounded-full border border-white/20 bg-[#070910] flex items-center justify-center z-10 shadow-[0_0_20px_rgba(203,251,69,0.3)]"
+                    className="absolute left-9 md:left-1/2 w-10 h-10 -translate-x-1/2 rounded-full border border-white/20 bg-white/5 flex items-center justify-center z-10 shadow-[0_0_20px_rgba(91,141,255,0.22)] backdrop-blur-md"
                   >
                     <span className="w-4 h-4 rounded-full bg-electric-blue shadow-[0_0_10px_rgba(203,251,69,0.8)]" />
                   </motion.div>
@@ -112,7 +112,7 @@ export default function TimelinePage() {
                     className={`w-full md:w-1/2 flex pl-20 md:pl-0 ${isEven ? "md:justify-end" : "md:justify-start"}`}
                   >
                     <div className="flex flex-col items-start md:items-center text-left md:text-center">
-                      <div className="w-24 h-24 rounded-2xl glass holo-border flex items-center justify-center text-5xl mb-4 shadow-[0_0_30px_rgba(203,251,69,0.1)] group hover:scale-110 transition-transform duration-500">
+                      <div className="w-24 h-24 rounded-2xl glass holo-border flex items-center justify-center text-5xl mb-4 bg-white/5 shadow-[0_0_30px_rgba(91,141,255,0.12)] group hover:scale-110 transition-transform duration-500 backdrop-blur-md">
                         <span className="group-hover:animate-pulse">{item.icon}</span>
                       </div>
                       <h3 className="text-2xl font-bold text-white tracking-wide">{item.stage}</h3>
@@ -128,8 +128,8 @@ export default function TimelinePage() {
                     transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
                     className="w-full md:w-1/2 pl-20 md:pl-0"
                   >
-                    <div className="glass rounded-3xl p-6 md:p-8 hover:holo-border transition-all duration-300 relative group overflow-hidden border border-white/5">
-                      <div className="absolute inset-0 bg-gradient-to-br from-electric-blue/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                    <div className="glass rounded-3xl border border-white/5 bg-white/5 p-6 md:p-8 hover:holo-border transition-all duration-300 relative group overflow-hidden backdrop-blur-md">
+                      <div className="absolute inset-0 bg-linear-to-br from-electric-blue/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                       
                       <h4 className="text-xl md:text-2xl font-semibold text-white mb-4 relative z-10">{item.title}</h4>
                       <p className="text-[#AAB8D4] leading-relaxed mb-6 text-sm md:text-base relative z-10">{item.description}</p>

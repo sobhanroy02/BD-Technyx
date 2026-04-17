@@ -102,16 +102,16 @@ export default function ServicesPage() {
               onMouseEnter={() => setActiveService(index)}
               onFocus={() => setActiveService(index)}
               onClick={() => setActiveService(index)}
-              className={`glass rounded-2xl p-5 text-left transition-all duration-300 ${
+              className={`rounded-2xl p-5 text-left transition-all duration-300 ${
                 activeService === index 
-                ? "holo-border shadow-[0_0_35px_rgba(203,251,69,0.15)] bg-white/10" 
-                : "opacity-60 hover:opacity-100 bg-white/5"
+                ? "border border-electric-blue/45 bg-linear-to-br from-sky-400/35 via-blue-400/30 to-cyan-400/30 shadow-[0_0_34px_rgba(120,190,255,0.28)] backdrop-blur-md" 
+                : "border border-white/18 bg-linear-to-br from-sky-400/18 via-blue-400/16 to-cyan-400/16 opacity-100 hover:border-sky-300/55 hover:from-sky-300/24 hover:via-blue-300/22 hover:to-cyan-300/22"
               }`}
             >
-              <div className="h-10 w-10 mb-4 rounded-full bg-black border border-white/10 flex items-center justify-center relative overflow-hidden group">
-                <span className={`w-3 h-3 rounded-full relative z-10 transition-all ${activeService === index ? "bg-electric-blue shadow-[0_0_10px_#cbfb45]" : "bg-white/30"}`} />
+                <div className="h-10 w-10 mb-4 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center justify-center relative overflow-hidden group">
+                  <span className={`w-3 h-3 rounded-full relative z-10 transition-all ${activeService === index ? "bg-electric-blue shadow-[0_0_10px_rgba(91,141,255,0.95)]" : "bg-white/30"}`} />
                 {activeService === index && (
-                   <span className="absolute inset-0 bg-electric-blue/20 animate-pulse" />
+                     <span className="absolute inset-0 bg-linear-to-br from-electric-blue/20 via-neon-violet/20 to-cyber-teal/20 animate-pulse" />
                 )}
               </div>
               <p className="text-[17.67px] font-semibold text-white">{service.title}</p>
@@ -120,7 +120,7 @@ export default function ServicesPage() {
           ))}
         </div>
 
-        <div className="mt-8 relative min-h-[440px]">
+        <div className="mt-8 relative min-h-110">
         <AnimatePresence mode="wait">
           <motion.div
             key={serviceModules[activeService].title}
@@ -128,10 +128,10 @@ export default function ServicesPage() {
             animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, scale: 0.98, filter: "blur(4px)" }}
             transition={{ duration: 0.35, ease: "easeOut" }}
-            className="glass holo-border rounded-3xl p-6 md:p-10 relative overflow-hidden"
+            className="rounded-3xl border border-sky-300/45 bg-linear-to-br from-sky-400/22 via-blue-400/18 to-cyan-400/20 p-6 md:p-10 relative overflow-hidden shadow-[0_0_36px_rgba(120,190,255,0.24)] backdrop-blur-md"
           >
             {/* Inner ambient glow */}
-            <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-electric-blue/5 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute top-0 right-0 w-full h-full bg-linear-to-bl from-sky-300/30 via-blue-300/18 to-transparent pointer-events-none" />
 
             <div className="grid gap-12 lg:grid-cols-12 relative z-10">
               <div className="lg:col-span-7">
@@ -145,7 +145,7 @@ export default function ServicesPage() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.2 + (i * 0.1) }}
-                      className="section-grid rounded-xl border border-white/10 bg-black/40 p-5 text-sm text-[#BBD0EE] flex flex-col justify-center gap-3 hover:border-electric-blue/50 transition-colors"
+                        className="section-grid rounded-xl border border-sky-300/35 bg-linear-to-br from-sky-300/20 via-blue-300/18 to-cyan-300/18 p-5 text-sm text-[#E3F2FF] flex flex-col justify-center gap-3 hover:border-sky-300/60 transition-colors backdrop-blur-md"
                     >
                       <span className="text-electric-blue text-xs font-mono tracking-widest">0{i+1} //</span>
                       <span className="font-medium text-[13px]">{bullet}</span>
@@ -161,7 +161,7 @@ export default function ServicesPage() {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.3 + (i * 0.1) }}
-                      className="glass rounded-2xl p-5 border border-white/5 relative overflow-hidden group"
+                      className="rounded-2xl p-5 border border-sky-300/35 bg-linear-to-br from-sky-300/20 via-blue-300/16 to-cyan-300/18 relative overflow-hidden group backdrop-blur-md"
                     >
                       <div className="flex justify-between items-end mb-4">
                         <span className="text-sm font-medium text-[#AAB8D4] tracking-wide">{metric.label}</span>
@@ -173,12 +173,12 @@ export default function ServicesPage() {
                       </div>
                       
                       {/* Animated Progress Bar */}
-                      <div className="h-2 w-full bg-black/50 rounded-full overflow-hidden shadow-inner">
+                      <div className="h-2 w-full bg-sky-200/20 rounded-full overflow-hidden shadow-inner">
                         <motion.div 
                           initial={{ width: 0 }}
                           animate={{ width: `${metric.fill}%` }}
                           transition={{ duration: 1, delay: 0.5 + (i * 0.1), ease: "easeOut" }}
-                          className="h-full bg-gradient-to-r from-electric-blue to-cyber-teal rounded-full relative"
+                          className="h-full bg-linear-to-r from-electric-blue to-cyber-teal rounded-full relative"
                         >
                           <div className="absolute inset-0 bg-white/20 w-full animate-[shimmer_2s_infinite]" />
                         </motion.div>

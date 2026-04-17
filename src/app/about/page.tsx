@@ -77,7 +77,7 @@ export default function AboutPage() {
               
               <div className="grid grid-cols-2 gap-4">
                 {stats.map((stat, idx) => (
-                  <div key={stat.label} className="border border-white/10 bg-black/40 rounded-2xl p-5 hover:border-electric-blue/40 transition-colors">
+                  <div key={stat.label} className="border border-white/10 bg-linear-to-br from-[#0d1327]/70 via-[#11183a]/65 to-[#0b1022]/60 rounded-2xl p-5 hover:border-electric-blue/40 transition-colors backdrop-blur-md">
                      <p className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-electric-blue to-neon-violet">{stat.value}</p>
                      <p className="text-xs text-[#AAB8D4] mt-2 uppercase tracking-wider">{stat.label}</p>
                   </div>
@@ -110,7 +110,7 @@ export default function AboutPage() {
                 key={pillar.title}
                 className="glass rounded-3xl p-6 border border-white/5 hover:border-white/20 hover:bg-white/5 transition-all duration-300 group"
               >
-                <div className="w-14 h-14 rounded-2xl bg-black/50 border border-white/10 flex items-center justify-center text-2xl mb-6 shadow-[0_0_15px_rgba(203,251,69,0.05)] group-hover:scale-110 transition-transform">
+                <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-2xl mb-6 shadow-[0_0_15px_rgba(91,141,255,0.08)] group-hover:scale-110 transition-transform backdrop-blur-md">
                   {pillar.icon}
                 </div>
                 <h4 className="text-lg font-semibold text-white mb-3 tracking-wide">{pillar.title}</h4>

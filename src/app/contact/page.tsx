@@ -29,20 +29,20 @@ export default function ContactPage() {
         <div className="mt-8 grid gap-6 lg:grid-cols-12">
           <form
             suppressHydrationWarning
-            className="glass holo-border space-y-4 rounded-2xl p-6 transition-all duration-500 lg:col-span-7 ring-1 ring-electric-blue/60 shadow-[0_0_36px_rgba(229,9,20,0.26)]"
+            className="space-y-4 rounded-2xl border border-sky-300/45 bg-linear-to-br from-sky-400/22 via-blue-400/18 to-cyan-400/20 p-6 backdrop-blur-md transition-all duration-500 lg:col-span-7 ring-1 ring-sky-300/40 shadow-[0_0_32px_rgba(120,190,255,0.24)]"
           >
             <p className="text-lg font-semibold text-white">Lead Capture & Collaboration Request</p>
             <div className="grid gap-4 md:grid-cols-2">
-              <input suppressHydrationWarning ref={leadNameRef} className="rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-[#D1C8CC]" placeholder="Your Name" />
-              <input suppressHydrationWarning className="rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-[#D1C8CC]" placeholder="Company" />
-              <input suppressHydrationWarning className="rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-[#D1C8CC] md:col-span-2" placeholder="Email Address" />
-              <select suppressHydrationWarning ref={requestTypeRef} className="rounded-xl border border-white/20 bg-[#15161d] px-4 py-3 text-sm text-white outline-none md:col-span-2">
+              <input suppressHydrationWarning ref={leadNameRef} className="rounded-xl border border-sky-300/30 bg-sky-200/10 px-4 py-3 text-sm text-white outline-none placeholder:text-[#D1C8CC] backdrop-blur-md" placeholder="Your Name" />
+              <input suppressHydrationWarning className="rounded-xl border border-sky-300/30 bg-sky-200/10 px-4 py-3 text-sm text-white outline-none placeholder:text-[#D1C8CC] backdrop-blur-md" placeholder="Company" />
+              <input suppressHydrationWarning className="rounded-xl border border-sky-300/30 bg-sky-200/10 px-4 py-3 text-sm text-white outline-none placeholder:text-[#D1C8CC] md:col-span-2 backdrop-blur-md" placeholder="Email Address" />
+              <select suppressHydrationWarning ref={requestTypeRef} className="rounded-xl border border-sky-300/30 bg-sky-200/12 px-4 py-3 text-sm text-white outline-none md:col-span-2 backdrop-blur-md">
                 <option value="Startup Collaboration Request">Startup Collaboration Request</option>
                 <option value="Service Consultation Booking">Service Consultation Booking</option>
                 <option value="Product Engineering Sprint">Product Engineering Sprint</option>
                 <option value="Marketing Intelligence Engagement">Marketing Intelligence Engagement</option>
               </select>
-              <textarea suppressHydrationWarning className="rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-[#D1C8CC] md:col-span-2" rows={4} placeholder="Project vision, timeline, and objectives" />
+              <textarea suppressHydrationWarning className="rounded-xl border border-sky-300/30 bg-sky-200/10 px-4 py-3 text-sm text-white outline-none placeholder:text-[#D1C8CC] md:col-span-2 backdrop-blur-md" rows={4} placeholder="Project vision, timeline, and objectives" />
             </div>
             <button suppressHydrationWarning type="button" className="neon-btn rounded-xl px-6 py-3 text-sm font-semibold text-white">
               <span>Activate Consultation Channel</span>

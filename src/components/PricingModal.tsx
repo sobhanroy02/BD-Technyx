@@ -116,7 +116,7 @@ export default function PricingModal({ isOpen, onClose }: PricingModalProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-[120] bg-[#04050A]/90 backdrop-blur-md"
+          className="fixed inset-0 z-120 bg-[#04050A]/90 backdrop-blur-md"
           onClick={onClose}
         >
           <motion.div
@@ -157,12 +157,16 @@ export default function PricingModal({ isOpen, onClose }: PricingModalProps) {
                         suppressHydrationWarning
                         key={service.id}
                         onClick={() => setSelectedService(service.id)}
-                        className={`glass rounded-xl p-3 text-center transition-all duration-300 ${selectedService === service.id
-                            ? "holo-border ring-1 ring-electric-blue/60 shadow-[0_0_20px_rgba(203,251,69,0.3)]"
-                            : "opacity-60 hover:opacity-80"
+                        className={`rounded-xl border p-3 text-center transition-all duration-300 ${selectedService === service.id
+                            ? "border-electric-blue/30 bg-white/8 ring-1 ring-neon-violet/70 shadow-[0_0_24px_rgba(91,141,255,0.28)] backdrop-blur-md"
+                            : "border-white/10 bg-transparent opacity-80 hover:border-electric-blue/25 hover:bg-linear-to-br hover:from-electric-blue/10 hover:via-neon-violet/10 hover:to-cyber-teal/10 hover:opacity-100"
                           }`}
                       >
-                        <div className="text-2xl mb-2">{service.icon}</div>
+                        <div className="mb-3 flex justify-start">
+                          <div className={`flex h-10 w-10 items-center justify-center rounded-full border ${selectedService === service.id ? "border-electric-blue/40 bg-linear-to-br from-electric-blue via-neon-violet to-cyber-teal shadow-[0_0_16px_rgba(91,141,255,0.35)]" : "border-white/15 bg-white/5 backdrop-blur-md"}`}>
+                            <span className={`h-3 w-3 rounded-full ${selectedService === service.id ? "bg-white shadow-[0_0_12px_rgba(255,255,255,0.9)]" : "bg-[#7b8ab8]"}`} />
+                          </div>
+                        </div>
                         <p className="text-xs font-semibold text-white leading-tight">{service.name.split(" ").slice(0, 2).join(" ")}</p>
                       </button>
                     ))}
@@ -176,7 +180,7 @@ export default function PricingModal({ isOpen, onClose }: PricingModalProps) {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.3 }}
-                  className="glass holo-border rounded-2xl p-6 md:p-8"
+                  className="rounded-2xl border border-electric-blue/15 bg-white/6 p-6 shadow-[0_0_32px_rgba(45,75,170,0.12)] backdrop-blur-md md:p-8"
                 >
                   <div className="flex items-start gap-4 mb-6">
                     <div className="text-5xl">{activeService.icon}</div>
@@ -202,7 +206,7 @@ export default function PricingModal({ isOpen, onClose }: PricingModalProps) {
                   </div>
 
                   {/* Pricing Info */}
-                  <div className="section-grid rounded-xl border border-white/10 p-4 mb-6 bg-white/5">
+                  <div className="section-grid rounded-xl border border-electric-blue/15 bg-white/5 p-4 mb-6 backdrop-blur-md">
                     <div className="flex items-baseline justify-between">
                       <div>
                         <p className="text-xs tracking-[0.18em] text-electric-blue uppercase mb-1">Service Cost</p>
@@ -216,7 +220,7 @@ export default function PricingModal({ isOpen, onClose }: PricingModalProps) {
                   </div>
 
                   {/* Info Text */}
-                  <div className="bg-indigo-500/5 border border-indigo-500/20 rounded-lg p-4 mb-6">
+                  <div className="bg-linear-to-r from-electric-blue/10 via-neon-violet/10 to-cyber-teal/10 border border-electric-blue/20 rounded-lg p-4 mb-6">
                     <p className="text-xs md:text-sm text-[#E3DDE3]">
                       <strong>Note:</strong> Our pricing is completely customized based on your specific requirements, project scope, timeline, and business goals.
                       Each service can be tailored to fit your needs. Contact us for a detailed quote and consultation.
@@ -227,7 +231,7 @@ export default function PricingModal({ isOpen, onClose }: PricingModalProps) {
                   <div className="flex flex-col sm:flex-row gap-3">
                     <a
                       href="/contact"
-                      className="flex items-center justify-center gap-2 rounded-full bg-[#cbfb45] px-8 py-3 text-sm font-semibold text-black transition-transform hover:scale-105 flex-1"
+                      className="flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-electric-blue via-neon-violet to-cyber-teal px-8 py-3 text-sm font-semibold text-white transition-transform hover:scale-105 flex-1 shadow-[0_0_22px_rgba(91,141,255,0.22)]"
                     >
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { type ReactNode, useEffect, useState, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 type ChatMessage = {
   id: number;
@@ -23,10 +23,12 @@ const reoQuickQueries = [
 ];
 
 const BRAND_NAME = "BD TECHNYX";
-const MAX_BRAND_CYCLES = 4;
+const MAX_BRAND_CYCLES = 2;
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const pathname = usePathname();
+  const showSharedPageBackground = pathname !== "/";
 
   const [isAiConsoleOpen, setAiConsoleOpen] = useState(false);
   const [hudMetrics, setHudMetrics] = useState({ sync: 96, load: 72, signal: 99 });
@@ -241,7 +243,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
       
       {/* Global Navigation */}
       <nav className="fixed left-0 right-0 top-0 z-40 px-4 pt-4 md:px-8 lg:px-14">
-        <div className="glass mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-3 rounded-2xl px-4 py-3">
+        <div className="glass mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-3 rounded-2xl border border-sky-200/30 bg-linear-to-r from-sky-300/16 via-blue-400/10 to-sky-200/16 px-4 py-3">
           <button
             suppressHydrationWarning
             type="button"
@@ -303,7 +305,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         </div>
 
         {isMobileMenuOpen && (
-          <div className="glass mx-auto mt-3 w-full max-w-7xl rounded-2xl border border-white/10 p-4 md:hidden">
+          <div className="glass mx-auto mt-3 w-full max-w-7xl rounded-2xl border border-sky-200/25 bg-linear-to-r from-sky-300/14 via-blue-400/8 to-sky-200/14 p-4 md:hidden">
             <div className="grid gap-2 text-sm">
               <button suppressHydrationWarning type="button" className="w-full border-0 bg-transparent px-0 py-2 text-left text-white hover:text-[#cbfb45]" onClick={() => handleNavAction("services")}><span>Services</span></button>
               <button suppressHydrationWarning type="button" className="w-full border-0 bg-transparent px-0 py-2 text-left text-white hover:text-[#cbfb45]" onClick={() => handleNavAction("labs")}><span>Labs</span></button>
@@ -347,7 +349,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
               initial={{ opacity: 0, y: 18, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.98 }}
-              className="glass holo-border w-full max-w-2xl rounded-3xl p-6 md:p-8"
+              className="w-full max-w-2xl rounded-3xl border border-sky-300/45 bg-linear-to-br from-sky-400/22 via-blue-400/18 to-cyan-400/20 p-6 md:p-8 backdrop-blur-md shadow-[0_0_32px_rgba(120,190,255,0.24)]"
             >
               <div className="flex items-center justify-between gap-3">
                 <div>
@@ -366,12 +368,12 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
               </div>
 
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                <button suppressHydrationWarning type="button" onClick={() => handleConsoleAction("services")} className="neon-btn rounded-xl px-4 py-3 text-left text-sm text-white"><span>Open Services Matrix</span></button>
-                <button suppressHydrationWarning type="button" onClick={() => handleConsoleAction("labs")} className="neon-btn rounded-xl px-4 py-3 text-left text-sm text-white"><span>Enter Labs Node</span></button>
-                <button suppressHydrationWarning type="button" onClick={() => handleConsoleAction("work")} className="neon-btn rounded-xl px-4 py-3 text-left text-sm text-white"><span>View Work Intelligence</span></button>
-                <button suppressHydrationWarning type="button" onClick={() => { setAiConsoleOpen(false); setReoOpen(true); }} className="neon-btn rounded-xl px-4 py-3 text-left text-sm text-white"><span>Talk to Reo Assistant</span></button>
-                <button suppressHydrationWarning type="button" onClick={() => handleConsoleAction("timeline")} className="neon-btn rounded-xl px-4 py-3 text-left text-sm text-white"><span>Open Timeline Flow</span></button>
-                <button suppressHydrationWarning type="button" onClick={() => handleConsoleAction("contact")} className="neon-btn rounded-xl px-4 py-3 text-left text-sm text-white"><span>Start Collaboration</span></button>
+                <button suppressHydrationWarning type="button" onClick={() => handleConsoleAction("services")} className="rounded-xl border border-sky-300/35 bg-sky-200/12 px-4 py-3 text-left text-sm text-white backdrop-blur-md transition-colors hover:border-sky-300/55 hover:bg-sky-200/20"><span>Open Services Matrix</span></button>
+                <button suppressHydrationWarning type="button" onClick={() => handleConsoleAction("labs")} className="rounded-xl border border-sky-300/35 bg-sky-200/12 px-4 py-3 text-left text-sm text-white backdrop-blur-md transition-colors hover:border-sky-300/55 hover:bg-sky-200/20"><span>Enter Labs Node</span></button>
+                <button suppressHydrationWarning type="button" onClick={() => handleConsoleAction("work")} className="rounded-xl border border-sky-300/35 bg-sky-200/12 px-4 py-3 text-left text-sm text-white backdrop-blur-md transition-colors hover:border-sky-300/55 hover:bg-sky-200/20"><span>View Work Intelligence</span></button>
+                <button suppressHydrationWarning type="button" onClick={() => { setAiConsoleOpen(false); setReoOpen(true); }} className="rounded-xl border border-sky-300/35 bg-sky-200/12 px-4 py-3 text-left text-sm text-white backdrop-blur-md transition-colors hover:border-sky-300/55 hover:bg-sky-200/20"><span>Talk to Reo Assistant</span></button>
+                <button suppressHydrationWarning type="button" onClick={() => handleConsoleAction("timeline")} className="rounded-xl border border-sky-300/35 bg-sky-200/12 px-4 py-3 text-left text-sm text-white backdrop-blur-md transition-colors hover:border-sky-300/55 hover:bg-sky-200/20"><span>Open Timeline Flow</span></button>
+                <button suppressHydrationWarning type="button" onClick={() => handleConsoleAction("contact")} className="rounded-xl border border-sky-300/35 bg-sky-200/12 px-4 py-3 text-left text-sm text-white backdrop-blur-md transition-colors hover:border-sky-300/55 hover:bg-sky-200/20"><span>Start Collaboration</span></button>
               </div>
             </motion.div>
           </motion.div>
@@ -501,61 +503,94 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         )}
       </AnimatePresence>
 
-      <main id="main-site" className="relative isolate overflow-hidden min-h-screen pb-20 pt-20">
+      <main id="main-site" className="relative isolate overflow-hidden min-h-screen pt-20">
+        {showSharedPageBackground && (
+          <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 h-full w-full object-cover object-center scale-105"
+            >
+              <source src="/15886614-hd_1080_1920_30fps%20(1).mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-linear-to-b from-black/75 via-[#23153c]/48 to-[#23153c]/88" />
+            <div className="absolute inset-x-0 bottom-0 h-64 bg-linear-to-t from-[#23153c]/96 via-[#3b82f6]/10 to-transparent" />
+            <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-[#3b82f6]/10 via-[#7c3aed]/8 to-transparent" />
+          </div>
+        )}
+
+        <div className="relative z-10">
         {children}
+        </div>
       </main>
 
-      <footer className="w-full border-t border-white/10 bg-black px-6 py-16 md:px-10 lg:px-20 mt-auto">
-        <div className="mx-auto flex max-w-[1400px] flex-col justify-between gap-12 md:flex-row md:gap-8">
-          <div className="flex flex-col space-y-4 md:w-1/4">
+      <footer className="relative -mt-12 w-full overflow-hidden bg-[#23153c] px-6 pb-8 pt-14 md:px-10 lg:px-20">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        >
+          <source src="/14492092_1920_1080_30fps%20(1).mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-linear-to-b from-[#23153c]/76 via-[#23153c]/86 to-[#23153c]/96" />
+        <div className="absolute inset-x-0 -top-16 h-32 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.28),rgba(124,58,237,0.72)_42%,rgba(35,21,60,0.96)_76%,transparent_100%)] blur-2xl" />
+        <div className="absolute inset-x-0 top-0 h-20 bg-linear-to-b from-[#3b82f6]/14 via-[#7c3aed]/12 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-[#23153c]/98 via-[#23153c]/84 to-transparent" />
+
+        <div className="relative z-10 mx-auto flex max-w-350 flex-col justify-between gap-6 md:flex-row md:gap-5">
+          <div className="flex flex-col space-y-2 md:w-1/4">
             <div className="flex items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center rounded-[4px] bg-[#cbfb45]">
+              <div className="flex h-6 w-6 items-center justify-center rounded-sm bg-[#cbfb45]">
                 <span className="h-2 w-2 bg-black" />
               </div>
               <span className="text-xl font-bold text-white tracking-wide">BD Technyx.</span>
             </div>
-            <p className="text-sm text-[#8c8c8c]">Your AI-Powered Workflow.</p>
+            <p className="text-sm text-[#b7a8c8]">Your AI-Powered Workflow.</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:w-2/3 lg:w-3/4">
-            <div className="flex flex-col space-y-3">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:w-2/3 lg:w-3/4">
+            <div className="flex flex-col space-y-1.5">
               <h4 className="mb-2 font-medium text-white">Quick Link</h4>
               <button suppressHydrationWarning type="button" onClick={() => handleNavAction("")} className="text-left text-sm text-[#cbfb45] hover:text-[#e4ff88] transition">Home 01</button>
-              <button suppressHydrationWarning type="button" onClick={() => handleNavAction("")} className="text-left text-sm text-[#8c8c8c] hover:text-white transition">Home 02</button>
-              <button suppressHydrationWarning type="button" onClick={() => handleNavAction("about")} className="text-left text-sm text-[#8c8c8c] hover:text-white transition">About Us</button>
-              <button suppressHydrationWarning type="button" onClick={() => handleNavAction("services")} className="text-left text-sm text-[#8c8c8c] hover:text-white transition">Features</button>
-              <button suppressHydrationWarning type="button" onClick={() => handleNavAction("pricing")} className="text-left text-sm text-[#8c8c8c] hover:text-white transition">Pricing</button>
-              <button suppressHydrationWarning type="button" onClick={() => handleNavAction("blog")} className="text-left text-sm text-[#8c8c8c] hover:text-white transition">Blog</button>
-              <button suppressHydrationWarning type="button" onClick={() => handleNavAction("integration")} className="text-left text-sm text-[#8c8c8c] hover:text-white transition">Integration</button>
-              <button suppressHydrationWarning type="button" onClick={() => handleNavAction("contact")} className="text-left text-sm text-[#8c8c8c] hover:text-white transition">Contact Us</button>
+              <button suppressHydrationWarning type="button" onClick={() => handleNavAction("")} className="text-left text-sm text-[#b7a8c8] hover:text-white transition">Home 02</button>
+              <button suppressHydrationWarning type="button" onClick={() => handleNavAction("about")} className="text-left text-sm text-[#b7a8c8] hover:text-white transition">About Us</button>
+              <button suppressHydrationWarning type="button" onClick={() => handleNavAction("services")} className="text-left text-sm text-[#b7a8c8] hover:text-white transition">Features</button>
+              <button suppressHydrationWarning type="button" onClick={() => handleNavAction("pricing")} className="text-left text-sm text-[#b7a8c8] hover:text-white transition">Pricing</button>
+              <button suppressHydrationWarning type="button" onClick={() => handleNavAction("blog")} className="text-left text-sm text-[#b7a8c8] hover:text-white transition">Blog</button>
+              <button suppressHydrationWarning type="button" onClick={() => handleNavAction("integration")} className="text-left text-sm text-[#b7a8c8] hover:text-white transition">Integration</button>
+              <button suppressHydrationWarning type="button" onClick={() => handleNavAction("contact")} className="text-left text-sm text-[#b7a8c8] hover:text-white transition">Contact Us</button>
+            </div>
+
+            <div className="flex flex-col space-y-1.5">
+              <h4 className="mb-2 font-medium text-white">Utility Pages</h4>
+              <button suppressHydrationWarning type="button" className="text-left text-sm text-[#b7a8c8] hover:text-white transition">404</button>
+              <button suppressHydrationWarning type="button" className="text-left text-sm text-[#b7a8c8] hover:text-white transition">Password</button>
+              <button suppressHydrationWarning type="button" className="text-left text-sm text-[#b7a8c8] hover:text-white transition">License</button>
+              <button suppressHydrationWarning type="button" className="text-left text-sm text-[#b7a8c8] hover:text-white transition">Changelog</button>
+              <button suppressHydrationWarning type="button" className="text-left text-sm text-[#b7a8c8] hover:text-white transition">Style Guide</button>
+              <button suppressHydrationWarning type="button" className="text-left text-sm text-[#b7a8c8] hover:text-white transition">Privacy Policy</button>
+              <button suppressHydrationWarning type="button" className="text-left text-sm text-[#b7a8c8] hover:text-white transition">Terms &amp; Conditions</button>
             </div>
 
             <div className="flex flex-col space-y-3">
-              <h4 className="mb-2 font-medium text-white">Utility Pages</h4>
-              <button suppressHydrationWarning type="button" className="text-left text-sm text-[#8c8c8c] hover:text-white transition">404</button>
-              <button suppressHydrationWarning type="button" className="text-left text-sm text-[#8c8c8c] hover:text-white transition">Password</button>
-              <button suppressHydrationWarning type="button" className="text-left text-sm text-[#8c8c8c] hover:text-white transition">License</button>
-              <button suppressHydrationWarning type="button" className="text-left text-sm text-[#8c8c8c] hover:text-white transition">Changelog</button>
-              <button suppressHydrationWarning type="button" className="text-left text-sm text-[#8c8c8c] hover:text-white transition">Style Guide</button>
-              <button suppressHydrationWarning type="button" className="text-left text-sm text-[#8c8c8c] hover:text-white transition">Privacy Policy</button>
-              <button suppressHydrationWarning type="button" className="text-left text-sm text-[#8c8c8c] hover:text-white transition">Terms &amp; Conditions</button>
-            </div>
-
-            <div className="flex flex-col space-y-6">
-              <div className="flex flex-col space-y-3">
+              <div className="flex flex-col space-y-1.5">
                 <h4 className="mb-1 font-medium text-white">Our Office</h4>
-                <p className="text-sm text-[#8c8c8c] leading-relaxed">
+                <p className="text-sm text-[#b7a8c8] leading-relaxed">
                   88 Market Street, San Francisco,<br /> CA 94103 United States
                 </p>
               </div>
-              <div className="flex flex-col space-y-3">
+              <div className="flex flex-col space-y-1.5">
                 <h4 className="mb-1 font-medium text-white">Our Phone</h4>
-                <p className="text-sm text-[#8c8c8c] leading-relaxed">+117 2345 6948</p>
+                <p className="text-sm text-[#b7a8c8] leading-relaxed">+117 2345 6948</p>
               </div>
             </div>
           </div>
         </div>
-        <div className="mx-auto max-w-[1400px] mt-16 border-t border-white/10 pt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm text-[#8c8c8c]">
+        <div className="relative z-10 mx-auto mt-6 flex max-w-350 flex-col gap-2 pt-3 text-sm text-[#b7a8c8] md:flex-row md:items-center md:justify-between">
           <p>© 2025 All rights reserved, Developed by BD Technyx</p>
           <button
             suppressHydrationWarning

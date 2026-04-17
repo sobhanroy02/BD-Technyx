@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -36,24 +35,22 @@ export default function Home() {
 
   return (
     <div ref={rootRef} className="relative z-10 w-full h-full min-h-[calc(100vh-80px)] overflow-hidden">
-      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden bg-gradient-to-b from-black via-slate-900 to-purple-900/40 pointer-events-none">
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-          className="w-full h-full object-cover object-[center_bottom] scale-105 opacity-60"
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover object-center scale-105"
         >
-          <source src="/hero-moon.mp4" type="video/mp4" />
+          <source src="/7101913-uhd_2560_1440_25fps.mp4" type="video/mp4" />
         </video>
-        {/* Soft overlay gradient to smooth the bottom to black and dim it slightly */}
-        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-purple-900/60 via-purple-900/20 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-purple-600/10" />
-        
-        {/* Floating animated elements like in the image */}
-        <div className="absolute top-1/3 left-1/4 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl animate-float-slow" />
-        <div className="absolute top-1/2 right-1/4 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl animate-float-slower" />
-        <div className="absolute bottom-1/3 left-1/3 w-48 h-48 bg-indigo-500/5 rounded-full blur-3xl animate-float-slow" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/65 via-[#23153c]/42 to-[#23153c]/88" />
+        <div className="absolute inset-x-0 bottom-0 h-72 bg-linear-to-t from-[#23153c]/96 via-[#3b82f6]/10 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-52 bg-[radial-gradient(circle_at_bottom,rgba(59,130,246,0.18),rgba(124,58,237,0.12)_34%,transparent_76%)]" />
+        <div className="absolute top-1/3 left-1/4 w-32 h-32 bg-[#ff3f81]/12 rounded-full blur-3xl animate-float-slow" />
+        <div className="absolute top-1/2 right-1/4 w-40 h-40 bg-[#ff3f81]/10 rounded-full blur-3xl animate-float-slower" />
+        <div className="absolute bottom-1/3 left-1/3 w-48 h-48 bg-[#ffffff]/5 rounded-full blur-3xl animate-float-slow" />
       </div>
 
       <section className="relative z-10 flex min-h-screen flex-col items-center justify-center px-5 pt-20 pb-32 text-center md:px-8 lg:px-16 pointer-events-none">

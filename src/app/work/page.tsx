@@ -94,8 +94,8 @@ export default function WorkPage() {
                 aria-label={`Open case study: ${project.name}`}
               >
                 <article
-                  className={`glass holo-border rounded-2xl p-5 transition-all duration-300 ${
-                    activeProjectIndex === index ? "ring-1 ring-neon-violet/70 shadow-[0_0_30px_rgba(229,9,20,0.26)]" : ""
+                  className={`glass rounded-2xl border border-white/10 bg-white/5 p-5 transition-all duration-300 ${
+                    activeProjectIndex === index ? "ring-1 ring-neon-violet/70 shadow-[0_0_30px_rgba(91,141,255,0.22)]" : ""
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -122,7 +122,7 @@ export default function WorkPage() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.985 }}
               transition={{ duration: 0.28, ease: "easeOut" }}
-              className="glass holo-border mt-6 rounded-3xl p-6 md:p-8"
+                className="glass mt-6 rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8 backdrop-blur-md"
             >
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
@@ -140,19 +140,19 @@ export default function WorkPage() {
               </div>
 
               <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                <div className="section-grid rounded-xl border border-white/10 p-4">
+                <div className="section-grid rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
                   <p className="text-xs tracking-[0.18em] text-electric-blue">PROBLEM</p>
                   <p className="mt-2 text-sm text-[#F0E7EC]">{activeProject.problem}</p>
                 </div>
-                <div className="section-grid rounded-xl border border-white/10 p-4">
+                <div className="section-grid rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
                   <p className="text-xs tracking-[0.18em] text-neon-violet">STRATEGY</p>
                   <p className="mt-2 text-sm text-[#F0E7EC]">{activeProject.strategy}</p>
                 </div>
-                <div className="section-grid rounded-xl border border-white/10 p-4">
+                <div className="section-grid rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-md">
                   <p className="text-xs tracking-[0.18em] text-neon-orange">EXECUTION</p>
                   <p className="mt-2 text-sm text-[#F0E7EC]">{activeProject.execution}</p>
                 </div>
-                <div className="section-grid rounded-xl border border-cyber-teal/40 p-4">
+                <div className="section-grid rounded-xl border border-cyber-teal/40 bg-linear-to-br from-cyber-teal/10 via-neon-violet/10 to-electric-blue/10 p-4 backdrop-blur-md">
                   <p className="text-xs tracking-[0.18em] text-cyber-teal">RESULTS</p>
                   <p className="mt-2 text-sm text-[#F6F6F6]">{activeProject.results}</p>
                 </div>
