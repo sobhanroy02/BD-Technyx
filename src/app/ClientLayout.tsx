@@ -22,6 +22,9 @@ const reoQuickQueries = [
   "How fast is delivery?",
 ];
 
+const BRAND_NAME = "BD TECHNYX";
+const MAX_BRAND_CYCLES = 4;
+
 export default function ClientLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
 
@@ -30,6 +33,8 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
   const [isHudVisible, setHudVisible] = useState(true);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [deferredInstallPrompt, setDeferredInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [brandPhase, setBrandPhase] = useState<"logo" | "typing" | "name">("logo");
+  const [typedBrandChars, setTypedBrandChars] = useState(0);
   const [isReoOpen, setReoOpen] = useState(false);
   const [isReoTyping, setReoTyping] = useState(false);
   const [isReoBotGreeting, setReoBotGreeting] = useState(false);
@@ -94,6 +99,50 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
       reoGreetingTimeouts.current.forEach((id) => window.clearTimeout(id));
       reoGreetingTimeouts.current = [];
     };
+  }, []);
+
+  useEffect(() => {
+    let logoTimer: number | undefined;
+    let holdTimer: number | undefined;
+    let typingTimer: number | undefined;
+    let cycleCount = 0;
+
+    const clearTimers = () => {
+      if (logoTimer) window.clearTimeout(logoTimer);
+      if (holdTimer) window.clearTimeout(holdTimer);
+      if (typingTimer) window.clearInterval(typingTimer);
+    };
+
+    const runCycle = () => {
+      setBrandPhase("logo");
+      setTypedBrandChars(0);
+
+      logoTimer = window.setTimeout(() => {
+        setBrandPhase("typing");
+        let index = 0;
+
+        typingTimer = window.setInterval(() => {
+          index += 1;
+          setTypedBrandChars(index);
+
+          if (index >= BRAND_NAME.length) {
+            if (typingTimer) window.clearInterval(typingTimer);
+            setBrandPhase("name");
+
+            cycleCount += 1;
+            if (cycleCount >= MAX_BRAND_CYCLES) {
+              setTypedBrandChars(BRAND_NAME.length);
+              return;
+            }
+
+            holdTimer = window.setTimeout(runCycle, 4200);
+          }
+        }, 120);
+      }, 2800);
+    };
+
+    runCycle();
+    return clearTimers;
   }, []);
 
   const handleNavAction = (targetPath: string) => {
@@ -197,9 +246,36 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
             suppressHydrationWarning
             type="button"
             onClick={() => handleNavAction("")}
-            className="brand-bd-technyx text-sm font-semibold tracking-[0.18em] text-white"
+            className="text-sm font-semibold tracking-[0.18em] text-white"
           >
-            BD TECHNYX
+            <span className="brand-lockup">
+              <AnimatePresence mode="wait">
+                {brandPhase === "logo" ? (
+                  <motion.span
+                    key="brand-logo"
+                    initial={{ opacity: 0, scale: 0.6, rotate: -20 }}
+                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                    exit={{ opacity: 0, scale: 0.75, rotate: 20 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    className="brand-logo-mark"
+                  >
+                    BD
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="brand-name"
+                    initial={{ opacity: 0, x: 8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -6 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    className="brand-bd-technyx"
+                  >
+                    {brandPhase === "typing" ? BRAND_NAME.slice(0, typedBrandChars) : BRAND_NAME}
+                    {brandPhase === "typing" && <span className="brand-caret" aria-hidden />}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </span>
           </button>
 
           <div className="hidden flex-wrap items-center gap-2 text-xs md:flex md:text-sm">

@@ -69,6 +69,42 @@ button,
   font-family: "Boldonse", system-ui;
   font-weight: 400;
   font-style: normal;
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(203, 251, 69, 0.24);
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  min-width: 11ch;
+  min-height: 1.3rem;
+}
+
+.brand-logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.2rem;
+  height: 1.4rem;
+  border-radius: 0.45rem;
+  padding: 0 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #040607;
+  background: linear-gradient(125deg, #cbfb45 0%, #8bdfff 100%);
+  box-shadow: 0 0 14px rgba(203, 251, 69, 0.3);
+  animation: brand-logo-pulse 1.8s ease-in-out infinite;
+}
+
+.brand-caret {
+  display: inline-block;
+  width: 0.08em;
+  height: 1em;
+  margin-left: 0.12em;
+  background: #cbfb45;
+  vertical-align: -0.08em;
+  animation: brand-caret-blink 0.9s steps(1, end) infinite;
 }
 
 .supermercado-one-regular {
@@ -282,5 +318,45 @@ button,
 
   50% {
     transform: rotate(18deg) translateY(-1px);
+  }
+}
+
+@keyframes brand-logo-pulse {
+
+  0% {
+    transform: scale(0.92);
+    box-shadow: 0 0 10px rgba(203, 251, 69, 0.25);
+  }
+
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 0 18px rgba(139, 223, 255, 0.35);
+  }
+
+  100% {
+    transform: scale(0.92);
+    box-shadow: 0 0 10px rgba(203, 251, 69, 0.25);
+  }
+}
+
+@keyframes brand-caret-blink {
+
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-logo-mark,
+  .brand-caret {
+    animation: none;
   }
 }
